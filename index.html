@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homenagem Dia das Mães</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Georgia', serif;
+            overflow: hidden; /* Importante para a chuva de pétalas não criar barras de rolagem */
+        }
+
+        body {
+            background-image: url('fudo1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            background-color: #fff5f8;
+        }
+
+        /* --- ESTILO DAS PÉTALAS --- */
+        .petala {
+            position: fixed;
+            top: -10%;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: queda-petala linear forwards;
+            font-size: 1.2rem;
+        }
+
+        @keyframes queda-petala {
+            0% {
+                transform: translateY(-10vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            100% {
+                /* Movimento aleatório lateral para parecer vento */
+                transform: translateY(110vh) translateX(100px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        /* -------------------------- */
+
+        .empresa-logo {
+            width: 100px;
+            height: auto;
+            max-height: 90px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            z-index: 10;
+        }
+
+        .cartao-mae {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid #fce4ec;
+            box-shadow: 0 15px 35px rgba(216, 27, 96, 0.12);
+            width: 100%;
+            max-width: 420px;
+            overflow: hidden;
+            text-align: center;
+            animation: fadeIn 1.2s ease-out;
+            z-index: 10;
+        }
+
+        .tarja-header {
+            background-color: #d81b60;
+            color: white;
+            padding: 15px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .mensagem-container {
+            min-height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        #mensagem-texto {
+            font-size: 1.2rem;
+            color: #4a148c;
+            font-style: italic;
+            line-height: 1.5;
+            margin: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .btn-share {
+            background-color: #25D366;
+            color: white !important;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-weight: 600;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+            width: 80%;
+            max-width: 280px;
+            transition: transform 0.2s;
+        }
+
+        .btn-share:active { transform: scale(0.95); }
+
+        .instrucao {
+            font-size: 0.75rem;
+            color: #ad1457;
+            margin-bottom: 10px;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 380px) {
+            #mensagem-texto { font-size: 1.1rem; }
+            .mensagem-container { min-height: 180px; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <img src="logo.png" alt="Logo" class="empresa-logo">
+
+    <div class="container d-flex justify-content-center p-0">
+        <div class="cartao-mae">
+            <div class="tarja-header">
+                🌸 Feliz Dia das Mães 🌸
+            </div>
+
+            <div class="mensagem-container" onclick="sortearMensagem()">
+                <p id="mensagem-texto">Carregando carinho...</p>
+            </div>
+
+            <p class="instrucao">Toque na mensagem para trocar! 💕</p>
+
+            <a href="javascript:void(0)" class="btn-share" onclick="compartilharWhatsApp()">
+                ENVIAR PELO WHATSAPP
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const mensagens = [
+            "Mãe, seu amor é o jardim onde a minha vida floresce. Feliz dia!",
+            "Nenhuma língua é capaz de expressar a beleza e a força de uma mãe.",
+            "Mãe: o amor mais bonito que existe. Te amo!",
+            "Obrigado por ser meu porto seguro. Feliz Dia das Mães!",
+            "Você é meu exemplo, minha força e meu amor eterno.",
+            "Mãe, você é a prova de que anjos existem na Terra.",
+            "Tudo que sou devo ao seu amor incondicional.",
+            "Seu amor ilumina até os dias mais nublados.",
+            "Você é a flor mais linda da minha vida. Parabéns!",
+"Mamãe, você é o amor que a vida me deu de presente. Te amo!!",
+            "Obrigado por cada abraço, cada beijo e cada ensinamento."
+        ];
+
+        function sortearMensagem() {
+            const el = document.getElementById('mensagem-texto');
+            el.style.opacity = 0;
+            setTimeout(() => {
+                const randomMsg = mensagens[Math.floor(Math.random() * mensagens.length)];
+                el.innerText = randomMsg;
+                el.style.opacity = 1;
+            }, 300);
+        }
+
+        function compartilharWhatsApp() {
+            const texto = document.getElementById('mensagem-texto').innerText;
+            const url = "https://api.whatsapp.com/send?text=" + 
+                        encodeURIComponent("🌸 *Feliz Dia das Mães!* 💖\n\n_" + texto + "_");
+            window.open(url, '_blank');
+        }
+
+        // --- LÓGICA DA CHUVA DE PÉTALAS ---
+        function criarPetala() {
+            const petala = document.createElement('div');
+            petala.className = 'petala';
+            
+            // Variedade de símbolos de pétalas/flores
+            const tipos = ['🍃', '🌸', '🌹', '❤️']; 
+            petala.innerText = tipos[Math.floor(Math.random() * tipos.length)];
+
+            // Cores Rosas e Vermelhas aleatórias
+            const cores = ['#ff4d6d', '#ff758f', '#c9184a', '#ffb3c1', '#ff0000'];
+            petala.style.color = cores[Math.floor(Math.random() * cores.length)];
+
+            // Posição e animação aleatória
+            petala.style.left = Math.random() * 100 + "vw";
+            petala.style.animationDuration = (Math.random() * 3 + 4) + "s"; // entre 4 e 7 segundos
+            petala.style.opacity = Math.random() * 0.5 + 0.5;
+            
+            document.body.appendChild(petala);
+
+            // Remove a pétala após a animação para não pesar o navegador
+            setTimeout(() => {
+                petala.remove();
+            }, 7000);
+        }
+
+        // Cria uma pétala a cada 400ms
+        setInterval(criarPetala, 400);
+
+        window.onload = sortearMensagem;
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
