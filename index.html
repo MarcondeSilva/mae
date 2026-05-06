@@ -12,7 +12,7 @@
             height: 100%;
             margin: 0;
             font-family: 'Georgia', serif;
-            overflow: hidden; /* Importante para a chuva de pétalas não criar barras de rolagem */
+            overflow: hidden;
         }
 
         body {
@@ -25,7 +25,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 15px;
+            padding: 20px;
             background-color: #fff5f8;
         }
 
@@ -41,106 +41,97 @@
         }
 
         @keyframes queda-petala {
-            0% {
-                transform: translateY(-10vh) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-            }
-            100% {
-                /* Movimento aleatório lateral para parecer vento */
-                transform: translateY(110vh) translateX(100px) rotate(720deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(110vh) translateX(100px) rotate(720deg); opacity: 0; }
         }
-        /* -------------------------- */
 
+        /* --- LOGO --- */
         .empresa-logo {
-            width: 100px;
+            width: 120px;
             height: auto;
             max-height: 90px;
             object-fit: contain;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             z-index: 10;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
 
-        .cartao-mae {
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid #fce4ec;
-            box-shadow: 0 15px 35px rgba(216, 27, 96, 0.12);
+        /* --- CONTEÚDO SEM CORPO BRANCO --- */
+        .conteudo-homenagem {
             width: 100%;
-            max-width: 420px;
-            overflow: hidden;
+            max-width: 500px;
             text-align: center;
-            animation: fadeIn 1.2s ease-out;
             z-index: 10;
+            animation: fadeIn 1.5s ease-out;
         }
 
-        .tarja-header {
-            background-color: #d81b60;
-            color: white;
-            padding: 15px;
-            font-size: 1rem;
-            letter-spacing: 1px;
+        .titulo-header {
+            color: #d81b60;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
             font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
 
         .mensagem-container {
-            min-height: 220px;
+            min-height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 10px;
             cursor: pointer;
         }
 
         #mensagem-texto {
-            font-size: 1.2rem;
+            font-size: 1.6rem;
             color: #4a148c;
             font-style: italic;
-            line-height: 1.5;
+            line-height: 1.4;
             margin: 0;
             transition: opacity 0.4s ease;
+            /* Sombra para garantir leitura sobre a imagem de fundo */
+            text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.9), 1px 1px 2px rgba(255, 255, 255, 1);
         }
 
         .btn-share {
             background-color: #25D366;
             color: white !important;
             border-radius: 50px;
-            padding: 12px 20px;
+            padding: 14px 30px;
             font-weight: 600;
             border: none;
             text-decoration: none;
             display: inline-block;
-            margin-bottom: 25px;
-            font-size: 0.85rem;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
-            width: 80%;
-            max-width: 280px;
-            transition: transform 0.2s;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, background-color 0.3s;
         }
 
-        .btn-share:active { transform: scale(0.95); }
+        .btn-share:hover {
+            background-color: #1ebe57;
+            transform: translateY(-2px);
+        }
 
         .instrucao {
-            font-size: 0.75rem;
-            color: #ad1457;
-            margin-bottom: 10px;
-            opacity: 0.7;
+            font-size: 0.8rem;
+            color: #d81b60;
+            margin-top: 15px;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
         }
 
-        @media (max-width: 380px) {
-            #mensagem-texto { font-size: 1.1rem; }
-            .mensagem-container { min-height: 180px; }
+        @media (max-width: 480px) {
+            #mensagem-texto { font-size: 1.4rem; }
+            .empresa-logo { width: 100px; }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
@@ -148,22 +139,20 @@
 
     <img src="logo.png" alt="Logo" class="empresa-logo">
 
-    <div class="container d-flex justify-content-center p-0">
-        <div class="cartao-mae">
-            <div class="tarja-header">
-                🌸 Feliz Dia das Mães 🌸
-            </div>
-
-            <div class="mensagem-container" onclick="sortearMensagem()">
-                <p id="mensagem-texto">Carregando carinho...</p>
-            </div>
-
-            <p class="instrucao">Toque na mensagem para trocar! 💕</p>
-
-            <a href="javascript:void(0)" class="btn-share" onclick="compartilharWhatsApp()">
-                ENVIAR PELO WHATSAPP
-            </a>
+    <div class="conteudo-homenagem">
+        <div class="titulo-header">
+            🌸 Feliz Dia das Mães 🌸
         </div>
+
+        <div class="mensagem-container" onclick="sortearMensagem()">
+            <p id="mensagem-texto">Carregando carinho...</p>
+        </div>
+
+        <p class="instrucao">Toque na frase para trocar 💕</p>
+
+        <a href="javascript:void(0)" class="btn-share" onclick="compartilharWhatsApp()">
+            ENVIAR PELO WHATSAPP
+        </a>
     </div>
 
     <script>
@@ -177,7 +166,7 @@
             "Tudo que sou devo ao seu amor incondicional.",
             "Seu amor ilumina até os dias mais nublados.",
             "Você é a flor mais linda da minha vida. Parabéns!",
-"Mamãe, você é o amor que a vida me deu de presente. Te amo!!",
+            "Mamãe, você é o amor que a vida me deu de presente. Te amo!!",
             "Obrigado por cada abraço, cada beijo e cada ensinamento."
         ];
 
@@ -198,35 +187,21 @@
             window.open(url, '_blank');
         }
 
-        // --- LÓGICA DA CHUVA DE PÉTALAS ---
         function criarPetala() {
             const petala = document.createElement('div');
             petala.className = 'petala';
-            
-            // Variedade de símbolos de pétalas/flores
             const tipos = ['🍃', '🌸', '🌹', '❤️']; 
             petala.innerText = tipos[Math.floor(Math.random() * tipos.length)];
-
-            // Cores Rosas e Vermelhas aleatórias
             const cores = ['#ff4d6d', '#ff758f', '#c9184a', '#ffb3c1', '#ff0000'];
             petala.style.color = cores[Math.floor(Math.random() * cores.length)];
-
-            // Posição e animação aleatória
             petala.style.left = Math.random() * 100 + "vw";
-            petala.style.animationDuration = (Math.random() * 3 + 4) + "s"; // entre 4 e 7 segundos
+            petala.style.animationDuration = (Math.random() * 3 + 4) + "s";
             petala.style.opacity = Math.random() * 0.5 + 0.5;
-            
             document.body.appendChild(petala);
-
-            // Remove a pétala após a animação para não pesar o navegador
-            setTimeout(() => {
-                petala.remove();
-            }, 7000);
+            setTimeout(() => { petala.remove(); }, 7000);
         }
 
-        // Cria uma pétala a cada 400ms
         setInterval(criarPetala, 400);
-
         window.onload = sortearMensagem;
     </script>
 
